@@ -1,10 +1,15 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from models import db, Incident
 import logging
 
 logger = logging.getLogger(__name__)
 
 api = Blueprint('api', __name__)
+
+
+
+
+
 
 def validate_incident_data(data: dict) -> tuple:
     """
@@ -30,6 +35,11 @@ def validate_incident_data(data: dict) -> tuple:
         return "Severity must be 'Low', 'Medium', or 'High'", 400
     
     return None, None
+
+@api.route('/')
+def index():
+    """Render the API documentation page"""
+    return render_template('index.html')
 
 @api.route('/incidents', methods=['GET'])
 def get_incidents():

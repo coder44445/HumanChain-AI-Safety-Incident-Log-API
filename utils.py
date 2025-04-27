@@ -47,9 +47,6 @@ def populate_database():
     app = create_app()
     with app.app_context():
         try:
-            # Clear existing data
-            Incident.query.delete()
-            
             # Add sample incidents
             for incident_data in sample_incidents:
                 incident = Incident(**incident_data)

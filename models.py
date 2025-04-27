@@ -10,7 +10,7 @@ class Incident(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     severity = db.Column(db.String(20), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    reported_at = db.Column(db.DateTime, default=datetime.now)
     
     def to_dict(self):
         return {
@@ -18,5 +18,5 @@ class Incident(db.Model):
             'title': self.title,
             'description': self.description,
             'severity': self.severity,
-            'created_at': self.created_at.isoformat()
+            'reported_at': self.reported_at.isoformat()
         } 

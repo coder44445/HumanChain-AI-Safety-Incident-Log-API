@@ -5,6 +5,10 @@ from routes import api
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 def create_app():
     app = Flask(__name__)
@@ -28,18 +32,27 @@ def create_app():
     logger.addHandler(file_handler)
     logger.setLevel(logging.INFO)
     
-    # Initialize database
-    db.init_app(app)
-    
-    # Register blueprints
-    app.register_blueprint(api)
-    
-    # Create database tables
-    with app.app_context():
-        db.create_all()
-    
-    return app
+    try:
+        # Initialize database
+        db.init_app(app)
+        
+        # Register blueprints
+        app.register_blueprint(api)
+        
+        # Create database tables
+        with app.app_context():
+            db.create_all()
+            logger.info("Database tables created successfully")
+        
+        return app
+    except Exception as e:
+        logger.error(f"Error initializing application: {str(e)}")
+        raise
 
 if __name__ == '__main__':
-    app = create_app()
-    app.run(debug=Config.DEBUG) 
+    try:
+        app = create_app()
+        app.run(debug=Config.DEBUG)
+    except Exception as e:
+        print(f"Failed to start application: {str(e)}")
+        raise 

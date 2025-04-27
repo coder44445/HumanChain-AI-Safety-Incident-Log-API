@@ -4,9 +4,15 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+
 class Config:
     # Database configuration
-    SQLALCHEMY_DATABASE_URI = f"mysql://{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
+    DB_USERNAME = os.getenv('DB_USERNAME')
+    DB_PASSWORD = os.getenv('DB_PASSWORD')
+    DB_HOST = os.getenv('DB_HOST')
+    DB_NAME = os.getenv('DB_NAME')
+    
+    SQLALCHEMY_DATABASE_URI = f"mysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # Logging configuration

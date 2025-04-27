@@ -1,6 +1,6 @@
 # AI Safety Incident Log Service
 
-A simple RESTful API service for logging and managing AI safety incidents. This guide will help you set up and run the application step by step.
+A RESTful API service for logging and managing AI safety incidents. This guide will help you set up and run the application step by step.
 
 ## Technology Stack
 - **Language**: Python
@@ -60,19 +60,21 @@ A simple RESTful API service for logging and managing AI safety incidents. This 
      DB_NAME=<YOUR_DB_NAME>
      ```
 
-4. **Populate Database (Optional)**
-   - Run the populate script to add sample incidents:
+4. **Initialize Database**
+   - Create and populate the database with sample data:
      ```bash
-     python populate_db.py
+     python utils.py
      ```
-   - This will add 3 sample incidents to your database:
-     1. AI Model Bias in Hiring System
-     2. Chatbot Misinformation Incident
-     3. Data Privacy Breach in AI Training
+   - This will:
+     1. Create the database if it doesn't exist
+     2. Add 3 sample incidents:
+        - AI Model Bias in Hiring System
+        - Chatbot Misinformation Incident
+        - Data Privacy Breach in AI Training
 
 5. **Start the Application**
    ```bash
-   flask run
+   python app.py
    ```
    The server will start at: http://127.0.0.1:5000
 
@@ -115,6 +117,19 @@ A simple RESTful API service for logging and managing AI safety incidents. This 
    - URL: `/incidents/{id}`
    - Response: 204 No Content or 404 if not found
 
+## Project Structure
+```
+project/
+├── app.py              # Main application file
+├── models.py           # Database models
+├── routes.py           # API routes
+├── utils.py            # Utility functions
+├── config.py           # Configuration
+├── requirements.txt    # Dependencies
+├── .env               # Environment variables
+└── README.md          # Documentation
+```
+
 ## 🆘 Troubleshooting
 
 1. **MySQL Connection Issues**
@@ -131,25 +146,25 @@ A simple RESTful API service for logging and managing AI safety incidents. This 
 3. **Port Conflicts**
    - Change port in `app.py`:
      ```python
-     app.run(debug=True, port=5001)
+     app.run(debug=Config.DEBUG, port=5001)
      ```
 
 ## Design Decisions
 
-1. **Database Auto-Creation**
-   - Application automatically creates database if missing
-   - Simplifies setup process for users
-   - Reduces manual configuration steps
-
-2. **Sample Data**
-   - Includes populate_db.py script for quick testing
-   - Provides realistic sample incidents
-   - Helps users understand the data structure
-
-3. **Simple Architecture**
-   - Focus on core REST API functionality
+1. **Simple Architecture**
+   - Flat file structure for easy navigation
    - Clear separation of concerns
-   - Easy to understand and maintain
+   - Minimal dependencies
+
+2. **Database Management**
+   - Automatic database creation
+   - Sample data population
+   - Proper error handling
+
+3. **API Design**
+   - RESTful endpoints
+   - Input validation
+   - Consistent error responses
 
 4. **Error Handling**
    - Comprehensive error handling

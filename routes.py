@@ -131,3 +131,7 @@ def db_health_check():
     except exc.SQLAlchemyError as e:
         # If there is any error connecting to MySQL, return an error response
         return jsonify(status="ERROR", db="MySQL", message=str(e)), 500
+
+@api.route('/favicon.ico')
+def favicon():
+    return '', 204  # No content, just to handle the request

@@ -6,3 +6,4 @@ SQLAlchemy==2.0.27
 python-dateutil==2.8.2
 mysqlclient==2.2.4
 pymysql==1.1.0
+gunicorn==21.2.0

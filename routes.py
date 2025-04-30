@@ -8,6 +8,11 @@ logger = logging.getLogger(__name__)
 api = Blueprint('api', __name__)
 
 
+@api.route('/')
+def index():
+    """Render the API documentation page"""
+    return render_template('index.html')
+
 
 def validate_incident_data(data: dict) -> tuple:
     """
@@ -33,11 +38,6 @@ def validate_incident_data(data: dict) -> tuple:
         return "Severity must be 'Low', 'Medium', or 'High'", 400
     
     return None, None
-
-@api.route('/')
-def index():
-    """Render the API documentation page"""
-    return render_template('index.html')
 
 @api.route('/incidents', methods=['GET'])
 def get_incidents():

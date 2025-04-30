@@ -1,13 +1,11 @@
 from flask import Blueprint, jsonify, request, render_template
 from models import db, Incident
+from sqlalchemy import create_engine, exc
 import logging
 
 logger = logging.getLogger(__name__)
 
 api = Blueprint('api', __name__)
-
-
-
 
 
 
@@ -109,3 +107,27 @@ def delete_incident(incident_id):
     except Exception as e:
         logger.error(f"Error in delete_incident: {str(e)}")
         raise 
+
+# health check
+@api.route('/health', methods=['GET'])
+def health_check():
+
+    return jsonify(status="OK"), 200
+
+#db health check
+@api.route('/health/db', methods=['GET'])
+def health_check():
+    try:
+        # Attempt to create a connection using SQLAlchemy
+        engine = create_engine(db.config['SQLALCHEMY_DATABASE_URI'])
+        connection = engine.connect()
+        
+        # Execute a simple query to test the connection
+        connection.execute('SELECT 1')
+
+        connection.close()
+
+        return jsonify(status="OK", db="MySQL", message="Database is healthy"), 200
+    except exc.SQLAlchemyError as e:
+        # If there is any error connecting to MySQL, return an error response
+        return jsonify(status="ERROR", db="MySQL", message=str(e)), 500

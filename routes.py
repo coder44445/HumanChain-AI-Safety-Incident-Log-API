@@ -116,7 +116,7 @@ def health_check():
 
 #db health check
 @api.route('/health/db', methods=['GET'])
-def health_check():
+def db_health_check():
     try:
         # Attempt to create a connection using SQLAlchemy
         engine = create_engine(db.config['SQLALCHEMY_DATABASE_URI'])

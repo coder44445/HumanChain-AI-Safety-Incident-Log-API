@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request, render_template
 from models import db, Incident
 from sqlalchemy import create_engine, exc
 import logging
+from config import Config
 
 logger = logging.getLogger(__name__)
 
@@ -119,7 +120,7 @@ def health_check():
 def db_health_check():
     try:
         # Attempt to create a connection using SQLAlchemy
-        engine = create_engine(db.config['SQLALCHEMY_DATABASE_URI'])
+        engine = create_engine(Config.SQLALCHEMY_DATABASE_URI)
         connection = engine.connect()
         
         # Execute a simple query to test the connection
@@ -130,6 +131,7 @@ def db_health_check():
         return jsonify(status="OK", db="MySQL", message="Database is healthy"), 200
     except exc.SQLAlchemyError as e:
         # If there is any error connecting to MySQL, return an error response
+        logger.error(f"Database Health error {str(e)}")
         return jsonify(status="ERROR", db="MySQL", message=str(e)), 500
 
 @api.route('/favicon.ico')

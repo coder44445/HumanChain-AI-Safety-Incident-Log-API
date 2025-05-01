@@ -49,10 +49,5 @@ def create_app():
         logger.error(f"Error initializing application: {str(e)}")
         raise
 
-if __name__ == '__main__':
-    try:
-        app = create_app()
-        app.run(debug=Config.DEBUG)
-    except Exception as e:
-        print(f"Failed to start application: {str(e)}")
-        raise 
+app = create_app()
+        

@@ -6,22 +6,6 @@ from config import Config
 
 logger = logging.getLogger(__name__)
 
-def create_database_if_not_exists():
-    """Create the database if it doesn't exist"""
-    try:
-        # Create engine without database
-        engine = create_engine(Config.SQLALCHEMY_DATABASE_URI)
-        
-        # Create database if it doesn't exist
-        with engine.connect() as conn:
-            conn.execute(text(f"CREATE DATABASE IF NOT EXISTS {os.getenv('DB_NAME')}"))
-            conn.commit()
-            logger.info(f"Database {os.getenv('DB_NAME')} created or already exists")
-
-    except Exception as e:
-        logger.error(f"Error creating database: {str(e)}")
-        raise
-
 def populate_database():
     """Populate the database with sample incidents"""
     from app import create_app
@@ -61,5 +45,4 @@ def populate_database():
 
 if __name__ == '__main__':
     load_dotenv()
-    create_database_if_not_exists()
     populate_database() 

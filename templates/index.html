@@ -175,7 +175,7 @@
             <div class="url">/incidents</div>
             <div class="description">Retrieve all incidents from the database</div>
             <div class="example">
-                curl -X GET http://localhost:5000/incidents
+                curl -X GET https://humanchain-ai-safety-incident-log-api-rak8.onrender.com/
             </div>
         </div>
 
@@ -184,7 +184,7 @@
             <div class="url">/incidents</div>
             <div class="description">Create a new incident in the database</div>
             <div class="example">
-                curl -X POST http://localhost:5000/incidents \<br>
+                curl -X POST https://humanchain-ai-safety-incident-log-api-rak8.onrender.com/incidents \<br>
                 -H "Content-Type: application/json" \<br>
                 -d '{"title": "Server Down", "description": "Main server is not responding", "severity": "High"}'
             </div>
@@ -195,7 +195,7 @@
             <div class="url">/incidents/&lt;id&gt;</div>
             <div class="description">Retrieve a specific incident by its ID</div>
             <div class="example">
-                curl -X GET http://localhost:5000/incidents/1
+                curl -X GET https://humanchain-ai-safety-incident-log-api-rak8.onrender.com/incidents/1
             </div>
         </div>
 
@@ -204,7 +204,7 @@
             <div class="url">/incidents/&lt;id&gt;</div>
             <div class="description">Delete a specific incident by its ID</div>
             <div class="example">
-                curl -X DELETE http://localhost:5000/incidents/1
+                curl -X DELETE https://humanchain-ai-safety-incident-log-api-rak8.onrender.com/incidents/1
             </div>
         </div>
 

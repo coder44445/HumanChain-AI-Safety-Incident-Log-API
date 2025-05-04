@@ -50,4 +50,3 @@ def create_app():
         raise
 
 app = create_app()
-        

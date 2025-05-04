@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 import logging
+from config import Config
 
 logger = logging.getLogger(__name__)
 
@@ -9,7 +10,7 @@ def create_database_if_not_exists():
     """Create the database if it doesn't exist"""
     try:
         # Create engine without database
-        engine = create_engine(f"mysql://{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/")
+        engine = create_engine(Config.SQLALCHEMY_DATABASE_URI)
         
         # Create database if it doesn't exist
         with engine.connect() as conn:
